@@ -917,25 +917,42 @@
         function initMap() {
             const location = {lat: 4.6868437, lng: -74.1490301}; //Coordenadas
 
-            const map = new google.maps.Maps(document.getElementById("map"), {
+            const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 18,
                 center: location,
             });
 
-            const market = new google.maps.Marker({
+            const marker = new google.maps.Marker({
                 position: location,
                 map: map,
                 title: "UniBike"
             });
 
             const infoWindow = new google.maps.InfoWindow({
-                content: "<h3>UniBike</h3><p>Calle 22f # 115 - 06, Fontibón</p>"
+                content: `
+                    <div>
+                        <h3 style="margin: 0 0 10px; color: #333;">UniBike</h3>
+                        <p style="margin: 0; color: #666;" >Calle 22f # 115 - 06, Fontibon</p>
+                    </div>
+                `
             });
 
+            // marker.addListener("click", () => {
+            //     infoWindow.open({map, marker});
+            // });
+
             marker.addListener("click", () => {
-                infoWindow.open(map, marker);
+                infoWindow.close();
+                setTimeout(() => {
+                    infoWindow.open(map, marker);
+                }, 100);
             });
         }
+    </script>
+    
+    <script  async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV1PUrVoAZm1W9P6GvIrsgXrvwlrAunD4&callback=initMap" 
+        async defer>
     </script>
 </body>
 </html>
